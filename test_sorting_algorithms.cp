@@ -1,6 +1,6 @@
 // Homework 4
 // Testing Sorting Algorithms
-// YOUR NAME
+// Tal Bachar
 
 #include "Sort.h"
 #include <chrono>
@@ -14,28 +14,29 @@ using namespace std;
 // Test function that shows how you can time a piece of code.
 // Just times a simple loop.
 
-void TestTiming() {
-  cout << "Test Timing" << endl;
-  const auto begin = chrono::high_resolution_clock::now();
-  // Time this piece of code.
-  int sum = 0;
-  for (int i = 1; i < 10000; ++i) sum ++;
-  // End of piece of code to time.
-  const auto end = chrono::high_resolution_clock::now();
-  cout << chrono::duration_cast<chrono::nanoseconds>(end - begin).count() << "ns" << endl;
-  cout << chrono::duration_cast<chrono::milliseconds>(end - begin).count() << "ms" << endl;
-
-}
+// void TestTiming() {
+//   cout << "Test Timing" << endl;
+//   const auto begin = chrono::high_resolution_clock::now();
+//   // Time this piece of code.
+//   int sum = 0;
+//   for (int i = 1; i < 10000; ++i) sum ++;
+//   // End of piece of code to time.
+//   const auto end = chrono::high_resolution_clock::now();
+//   cout << chrono::duration_cast<chrono::nanoseconds>(end - begin).count() << "ns" << endl;
+//   cout << chrono::duration_cast<chrono::milliseconds>(end - begin).count() << "ms" << endl;
+//
+// }
 
 // Generates and returns random vector of size @size_of_vector.
 vector<int> GenerateRandomVector(size_t size_of_vector) {
   vector<int> random_nums_vector;
   for (int i=0; i<size_of_vector-1; i++) {
      random_nums_vector.push_back(rand());
+     cout << random_nums_vector[i] << ",";
+
   }
 
   return random_nums_vector;
-
 }//end GenerateRandomVector
 
 
@@ -46,14 +47,14 @@ vector<int> GenerateSortedVector(size_t size_of_vector, bool smaller_to_larger) 
    vector<int> sorted_vector;
 
    if (smaller_to_larger) {
-      for (int i=0; i<size_of_vector-1; i++) {
+      for (int i=0; i<size_of_vector; i++) {
          sorted_vector.push_back(i);
       }
    }
 
    else {
-      for (int i=size_of_vector-1; i>=0; i--) {
-         sorted_vector.push_back(i);
+      for (int i=size_of_vector; i>=0; i--) {
+        sorted_vector.push_back(i);
       }
    }
    return sorted_vector;
@@ -73,7 +74,8 @@ bool VerifyOrder(const vector<Comparable> &input, Comparator less_than) {
 }
 
 // Computes duration given a start time and a stop time in nano seconds
-long long ComputeDuration(chrono::high_resolution_clock::time_point start_time, chrono::high_resolution_clock::time_point end_time) {
+auto ComputeDuration(chrono::high_resolution_clock::time_point start_time,
+                           chrono::high_resolution_clock::time_point end_time) {
 
    const auto begin = start_time;
    const auto end = end_time;
@@ -108,19 +110,25 @@ void sortTestingWrapper(int argc, char **argv) {
   cout << "Running sorting algorithms: " << input_type << " " << input_size << " numbers " << comparison_type << endl;
   vector<int> input_vector;
   if (input_type == "random") {
-    // Generate random vector
-
-  } else {
-    // Generate sorted vector.
+    GenerateRandomVector(input_size);
 
   }
+  else {
+     if (comparison_type == "less") {
+        GenerateSortedVector(input_size, false);
+     }
+     else {
+        GenerateSortedVector(input_size, true);
+     }
+  }
+
 
   // Call quicksort / heapsort / mergesort using appropriate input.
   // ...
   // if comparison type is "less" then call
-  // MergeSort(input_vector, less<int>{})
+  // mergeSort(input_vector, less<int>{})
   // otherwise call
-  // MergeSort(input_vector, greater<int>{})
+  // mergeSort(input_vector, greater<int>{})
   // ...
 
   // Call quicksort with median of three as pivot / middle as pivot / first as pivot using appropriate input.

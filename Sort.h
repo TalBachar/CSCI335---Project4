@@ -197,7 +197,7 @@ template <typename Comparable>
 const Comparable & median3( vector<Comparable> & a, int left, int right )
 {
     int center = ( left + right ) / 2;
-    
+
     if( a[ center ] < a[ left ] )
         std::swap( a[ left ], a[ center ] );
     if( a[ right ] < a[ left ] )
@@ -316,9 +316,9 @@ void SORT( vector<Comparable> & items )
         vector<Comparable> smaller;
         vector<Comparable> same;
         vector<Comparable> larger;
-        
+
         auto chosenItem = items[ items.size( ) / 2 ];
-        
+
         for( auto & i : items )
         {
             if( i < chosenItem )
@@ -328,10 +328,10 @@ void SORT( vector<Comparable> & items )
             else
                 same.push_back( std::move( i ) );
         }
-        
+
         SORT( smaller );     // Recursive call!
         SORT( larger );      // Recursive call!
-        
+
         std::move( begin( smaller ), end( smaller ), begin( items ) );
         std::move( begin( same ), end( same ), begin( items ) + smaller.size( ) );
         std::move( begin( larger ), end( larger ), end( items ) - larger.size( ) );
@@ -357,7 +357,7 @@ void insertionSort( const RandomIterator & begin,
 {
     if( begin == end )
         return;
-        
+
     RandomIterator j;
 
     for( RandomIterator p = begin+1; p != end; ++p )
