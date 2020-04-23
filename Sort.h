@@ -18,19 +18,21 @@ using namespace std;
 /**
  * Simple insertion sort.
  */
-template <typename Comparable>
-void insertionSort( vector<Comparable> & a )
-{
-    for( int p = 1; p < a.size( ); ++p )
-    {
-        Comparable tmp = std::move( a[ p ] );
-
-        int j;
-        for( j = p; j > 0 && tmp < a[ j - 1 ]; --j )
-            a[ j ] = std::move( a[ j - 1 ] );
-        a[ j ] = std::move( tmp );
-    }
-}
+ template <typename Comparable, typename Comparator>
+ void insertionSort(vector<Comparable> & a,Comparable left, Comparable right, Comparator less_than)
+ {
+ 	for(int i=left;i<=right;i++)
+ 	{
+ 		Comparable temp =a[i];
+ 		int j=i;
+ 		while(j>0&&less_than(temp,a[j-1]))
+ 		{
+ 			a[j]=a[j-1];
+ 			j--;
+ 		}
+ 		a[j]=temp;
+ 	}
+ }
 
 
 /**
@@ -40,7 +42,7 @@ void insertionSort( vector<Comparable> & a )
  * left is the left-most index of the subarray.
  * right is the right-most index of the subarray.
  */
-template <typename Comparable>
+template <typename Comparable, typename Comparator>
 void insertionSort( vector<Comparable> & a, int left, int right )
 {
     for( int p = left + 1; p <= right; ++p )
@@ -204,18 +206,17 @@ void MergeSort(vector<Comparable> &a, Comparator less_than)
 template <typename Comparable, typename Comparator>
 const Comparable & median3( vector<Comparable> & a, int left, int right,Comparator less_than)
 {
-    int center = ( left + right ) / 2;
+   int center =(left+right)/2;
 
-    if( a[ center ] < a[ left ] )
-        std::swap( a[ left ], a[ center ] );
-    if( a[ right ] < a[ left ] )
-        std::swap( a[ left ], a[ right ] );
-    if( a[ right ] < a[ center ] )
-        std::swap( a[ center ], a[ right ] );
-
-        // Place pivot at position right - 1
-    std::swap( a[ center ], a[ right - 1 ] );
-    return a[ right - 1 ];
+  if(less_than(a[center],a[left]))
+     swap(a[left],a[center]);
+  if(less_than(a[right],a[left]))
+     swap(a[left],a[right]);
+  if(less_than(a[right],a[center]))
+     swap(a[center],a[right]);
+  // Place pivot at position right - 1
+  swap(a[center],a[right-1]);
+  return a[right-1];
 }
 
 /**
@@ -226,32 +227,44 @@ const Comparable & median3( vector<Comparable> & a, int left, int right,Comparat
  * right is the right-most index of the subarray.
  */
  template <typename Comparable, typename Comparator>
- void quickSort(vector<Comparable> &a,Comparable left, Comparable right ,Comparator less_than) {
-    if( left + 10 <= right )
-    {
-        const Comparable & pivot = median3( a, left, right, less_than );
+ void quickSort(vector<Comparable> &a,Comparable left, Comparable right ,Comparator less_than)
+ {
+ 	if(left+10 <= right)
+ 	{
+ 		//a[left]become the smallest,a[right]become the largest.
+ 		const Comparable &pivot= median3(a,left,right,less_than);
+ 		//cout<<a[right]<<endl;
 
-            // Begin partitioning
-        int i = left, j = right - 1;
-        for( ; ; ) {
-           while(less_than(a[++i],pivot)){}
-           while(less_than(pivot,a[--j])){}
+ 		//Begin partitioning
+ 		int i=left;
+ 		int j=right-1;
 
-            if( i < j )
-                std::swap( a[i], a[j] );
-            else
-                break;
-        }
+ 		for(;;)
+ 		{
+ 			//while(a[++i]<pivot){}
+ 			while(less_than(a[++i],pivot)){}
+ 			while(less_than(pivot,a[--j])){}
+ 			//while(pivot<a[--j]){}
+ 			if(i<j)
+ 			{
+ 				swap(a[i],a[j]);
+ 			}
+ 			else
+ 				break;
+ 		}
+ 		swap(a[i],a[right-1]);//restore pivot
+ 		quickSort(a,left,i-1,less_than);//sort small elements
+ 		quickSort(a,i+1,right,less_than);//sort large elements
+ 	}
+ 	else
+ 	{
+ 		//Do an insertion sort on the subarray
+ 		//cout<<"i"<<endl;
+ 		//cout<<left<<"  "<<right<<endl;
+ 		insertionSort(a,left,right,less_than);
 
-        std::swap( a[ i ], a[ right - 1 ] );  // Restore pivot
-
-        quickSort(a,left,i-1,less_than);  //sort small elements
-		  quickSort(a,i+1,right,less_than);  //sort large elements
-    }
-    else  // Do an insertion sort on the subarray
-        insertionSort( a, left, right );
-}
-
+ 	}
+ }
 /**
  * Quicksort algorithm (driver).
  */
@@ -353,40 +366,6 @@ void SORT( vector<Comparable> & items )
         items.insert( end( items ), begin( larger ), end( larger ) );
 */
     }
-}
-
-/*
- * This is the more public version of insertion sort.
- * It requires a pair of iterators and a comparison
- * function object.
- */
-template <typename RandomIterator, typename Comparator>
-void insertionSort( const RandomIterator & begin,
-                    const RandomIterator & end,
-                    Comparator lessThan )
-{
-    if( begin == end )
-        return;
-
-    RandomIterator j;
-
-    for( RandomIterator p = begin+1; p != end; ++p )
-    {
-        auto tmp = std::move( *p );
-        for( j = p; j != begin && lessThan( tmp, *( j-1 ) ); --j )
-            *j = std::move( *(j-1) );
-        *j = std::move( tmp );
-    }
-}
-
-/*
- * The two-parameter version calls the three parameter version, using C++11 decltype
- */
-template <typename RandomIterator>
-void insertionSort( const RandomIterator & begin,
-                    const RandomIterator & end )
-{
-    insertionSort( begin, end, less<decltype(*begin )>{ } );
 }
 
 

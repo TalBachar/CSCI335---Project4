@@ -11,29 +11,12 @@
 #include <vector>
 using namespace std;
 
-// Test function that shows how you can time a piece of code.
-// Just times a simple loop.
-
-// void TestTiming() {
-//   cout << "Test Timing" << endl;
-//   const auto begin = chrono::high_resolution_clock::now();
-//   // Time this piece of code.
-//   int sum = 0;
-//   for (int i = 1; i < 10000; ++i) sum ++;
-//   // End of piece of code to time.
-//   const auto end = chrono::high_resolution_clock::now();
-//   cout << chrono::duration_cast<chrono::nanoseconds>(end - begin).count() << "ns" << endl;
-//   cout << chrono::duration_cast<chrono::milliseconds>(end - begin).count() << "ms" << endl;
-//
-// }
 
 // Generates and returns random vector of size @size_of_vector.
 vector<int> GenerateRandomVector(size_t size_of_vector) {
   vector<int> random_nums_vector;
   for (int i=0; i<size_of_vector-1; i++) {
      random_nums_vector.push_back(rand());
-     // cout << random_nums_vector[i] << ",";
-
   }
 
   return random_nums_vector;
@@ -147,19 +130,12 @@ void sortTestingWrapper(int argc, char **argv) {
          cout << "MergeSort" << "\n\n" <<  "Runtime: " << ComputeDuration(begin1, end1) << " ns" << endl;
          cout << "Verified: " << VerifyOrder(input_vector1, greater<int>{}) << "\n\n";
          //QUICK
-         // for (int i=0; i<input_vector2.size(); i++) {
-         //    cout << input_vector2[i] << ", ";
-         // }
-         cout << endl;
          const auto begin2 = chrono::high_resolution_clock::now();
          QuickSort(input_vector2, greater<int>{});
          const auto end2 = chrono::high_resolution_clock::now();
          cout << "QuickSort" << "\n\n" <<  "Runtime: " << ComputeDuration(begin2, end2) << " ns" << endl;
          cout << "Verified: " << VerifyOrder(input_vector2, greater<int>{}) << "\n\n"; //ISSUE! not verified
-         // for (int i=0; i<input_vector2.size(); i++) {
-         //    cout << input_vector2[i] << ", ";
-         // }
-         // cout << endl;
+
       }
    }//end random
 
@@ -266,27 +242,6 @@ void sortTestingWrapper(int argc, char **argv) {
 }//end sortTestingWrapper
 
 
-  // where <input_type> can be random, sorted_small_to_large, or sorted_large_to_small,
-  // <input_size> is the number of elements of the input, and <comparison_type> is either less or greater.
-
-
-  // Call quicksort / Heapsort / mergesort using appropriate input.
-  // ...
-  // if comparison type is "less" then call
-  // mergeSort(input_vector, less<int>{})
-  // otherwise call
-  // mergeSort(input_vector, greater<int>{})
-  // ...
-
-  // Call quicksort with median of three as pivot / middle as pivot / first as pivot using appropriate input.
-  // ...
-  // if comparison type is "less" then call
-  // QuickSort(input_vector, less<int>{})
-  // otherwise call
-  // QuickSort(input_vector, greater<int>{})
-  // ...
-
-//}
 
 int main(int argc, char **argv) {
   if (argc != 4) {
