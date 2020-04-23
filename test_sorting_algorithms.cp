@@ -108,21 +108,36 @@ void sortTestingWrapper(int argc, char **argv) {
   cout << "Running sorting algorithms: " << input_type << " " << input_size << " numbers " << comparison_type << endl;
   if (input_type == "random") {
        vector<int> input_vector = GenerateRandomVector(input_size);
+       vector<int> input_vector1 = input_vector;
+       vector<int> input_vector2 = input_vector;
 
        if (comparison_type == "less") {
+         //HEAP
          const auto begin = chrono::high_resolution_clock::now();
-         heapSort(input_vector, less<int>{});
+         HeapSort(input_vector, less<int>{});
          const auto end = chrono::high_resolution_clock::now();
          cout << "Heapsort" << endl <<  "Runtime: " << ComputeDuration(begin, end) << " ns" << endl;
-         cout << "Verified: " << VerifyOrder(input_vector, less<int>{}) << endl;
-         
+         cout << "Verified: " << VerifyOrder(input_vector, less<int>{}) << "\n\n";
+         //MERGE
+         const auto begin1 = chrono::high_resolution_clock::now();
+         MergeSort(input_vector1, less<int>{});
+         const auto end1 = chrono::high_resolution_clock::now();
+         cout << "MergeSort" << endl <<  "Runtime: " << ComputeDuration(begin1, end1) << " ns" << endl;
+         cout << "Verified: " << VerifyOrder(input_vector1, less<int>{}) << "\n\n";
       }
       if (comparison_type == "greater") {
+         //HEAP
          const auto begin = chrono::high_resolution_clock::now();
-         heapSort(input_vector, greater<int>{});
+         HeapSort(input_vector, greater<int>{});
          const auto end = chrono::high_resolution_clock::now();
          cout << "Heapsort" << endl <<  "Runtime: " << ComputeDuration(begin, end) << " ns" << endl;
-         cout << "Verified: " << VerifyOrder(input_vector, greater<int>{}) << endl;
+         cout << "Verified: " << VerifyOrder(input_vector, greater<int>{}) << "\n\n";
+         //MERGE
+         const auto begin1 = chrono::high_resolution_clock::now();
+         MergeSort(input_vector1, greater<int>{});
+         const auto end1 = chrono::high_resolution_clock::now();
+         cout << "MergeSort" << endl <<  "Runtime: " << ComputeDuration(begin1, end1) << " ns" << endl;
+         cout << "Verified: " << VerifyOrder(input_vector1, greater<int>{}) << "\n\n";
       }
    }//end random
 
@@ -130,18 +145,33 @@ void sortTestingWrapper(int argc, char **argv) {
    vector<int> input_vector = GenerateSortedVector(input_size, true);
 
    if (comparison_type == "less") {
+     //HEAP
      const auto begin = chrono::high_resolution_clock::now();
-     heapSort(input_vector, less<int>{});
+     HeapSort(input_vector, less<int>{});
      const auto end = chrono::high_resolution_clock::now();
      cout << "Heapsort" << endl <<  "Runtime: " << ComputeDuration(begin, end) << " ns" << endl;
      cout << "Verified: " << VerifyOrder(input_vector, less<int>{}) << endl;
+     //MERGE
+     const auto begin1 = chrono::high_resolution_clock::now();
+     MergeSort(input_vector1, less<int>{});
+     const auto end1 = chrono::high_resolution_clock::now();
+     cout << "MergeSort" << endl <<  "Runtime: " << ComputeDuration(begin1, end1) << " ns" << endl;
+     cout << "Verified: " << VerifyOrder(input_vector1, less<int>{}) << "\n\n";
+
   }//sorted_small_to_large - LESS
   if (comparison_type == "greater") {
+     //HEAP
      const auto begin = chrono::high_resolution_clock::now();
-     heapSort(input_vector, greater<int>{});
+     HeapSort(input_vector, greater<int>{});
      const auto end = chrono::high_resolution_clock::now();
      cout << "Heapsort" << endl <<  "Runtime: " << ComputeDuration(begin, end) << " ns" << endl;
      cout << "Verified: " << VerifyOrder(input_vector, greater<int>{}) << endl;
+     //MERGE
+     const auto begin1 = chrono::high_resolution_clock::now();
+     MergeSort(input_vector1, greater<int>{});
+     const auto end1 = chrono::high_resolution_clock::now();
+     cout << "MergeSort" << endl <<  "Runtime: " << ComputeDuration(begin1, end1) << " ns" << endl;
+     cout << "Verified: " << VerifyOrder(input_vector1, greater<int>{}) << "\n\n";
   }//sorted_small_to_large - GREATER
 
  }//sorted_small_to_large
@@ -150,19 +180,33 @@ void sortTestingWrapper(int argc, char **argv) {
      vector<int> input_vector = GenerateSortedVector(input_size, false);
 
      if (comparison_type == "less") {
+       //HEAP
        const auto begin = chrono::high_resolution_clock::now();
-       heapSort(input_vector, less<int>{});
+       HeapSort(input_vector, less<int>{});
        const auto end = chrono::high_resolution_clock::now();
        cout << "Heapsort" << endl <<  "Runtime: " << ComputeDuration(begin, end) << " ns" << endl;
        cout << "Verified: " << VerifyOrder(input_vector, less<int>{}) << endl;
+       //MERGE
+       const auto begin1 = chrono::high_resolution_clock::now();
+       MergeSort(input_vector1, less<int>{});
+       const auto end1 = chrono::high_resolution_clock::now();
+       cout << "MergeSort" << endl <<  "Runtime: " << ComputeDuration(begin1, end1) << " ns" << endl;
+       cout << "Verified: " << VerifyOrder(input_vector1, less<int>{}) << "\n\n";
     }//sorted_large_to_small - LESS
 
     if (comparison_type == "greater") {
+       //HEAP
        const auto begin = chrono::high_resolution_clock::now();
-       heapSort(input_vector, greater<int>{});
+       HeapSort(input_vector, greater<int>{});
        const auto end = chrono::high_resolution_clock::now();
        cout << "Heapsort" << endl <<  "Runtime: " << ComputeDuration(begin, end) << " ns" << endl;
        cout << "Verified: " << VerifyOrder(input_vector, greater<int>{}) << endl;
+       //MERGE
+       const auto begin1 = chrono::high_resolution_clock::now();
+       MergeSort(input_vector1, greater<int>{});
+       const auto end1 = chrono::high_resolution_clock::now();
+       cout << "MergeSort" << endl <<  "Runtime: " << ComputeDuration(begin1, end1) << " ns" << endl;
+       cout << "Verified: " << VerifyOrder(input_vector1, greater<int>{}) << "\n\n";
     }//sorted_large_to_small - GREATER
 
   } //sorted_large_to_small
@@ -176,7 +220,7 @@ void sortTestingWrapper(int argc, char **argv) {
   // <input_size> is the number of elements of the input, and <comparison_type> is either less or greater.
 
 
-  // Call quicksort / heapsort / mergesort using appropriate input.
+  // Call quicksort / Heapsort / mergesort using appropriate input.
   // ...
   // if comparison type is "less" then call
   // mergeSort(input_vector, less<int>{})

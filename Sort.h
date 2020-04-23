@@ -115,7 +115,7 @@ void percDown(vector<Comparable> & a, int i, int n, Comparator less_than)
  * Standard heapsort.
  */
  template <typename Comparable, typename Comparator>
- void heapSort(vector<Comparable> &a, Comparator less_than) {
+ void HeapSort(vector<Comparable> &a, Comparator less_than) {
 
    for( int i = a.size( ) / 2 - 1; i >= 0; --i )  /* buildHeap */
         percDown(a, i, a.size(), less_than );
@@ -125,34 +125,6 @@ void percDown(vector<Comparable> & a, int i, int n, Comparator less_than)
     }
 }
 
-/**
-* Internal method that makes recursive calls.
-* a is an array of Comparable items.
-* tmpArray is an array to place the merged result.
-* left is the left-most index of the subarray.
-* right is the right-most index of the subarray.
-*/
-template <typename Comparable, typename Comparator>
-void mergeSort(vector<Comparable> &a,vector<Comparable> &b,Comparable left,Comparable right, Comparator less_than)
-{
-	if(left<right)
-	{
-		Comparable center=(left+right)/2;
-		mergeSort(a,b,left,center,less_than);
-		mergeSort(a,b,center+1,right,less_than);
-		merge(a,b,left,center+1,right,less_than);
-	}
-}
-template <typename Comparable, typename Comparator>
-void mergeSort(vector<Comparable> &a, Comparator less_than)
-{
-	/**
- * mergeSort algorithm (driver).
- */
-	vector<Comparable>b(a.size());
-	Comparable c=a.size()-1;
-	mergeSort(a,b,0,c,less_than);
-}
 /**
  * Internal method that merges two sorted halves of a subarray.
  * a is an array of Comparable items.
@@ -195,6 +167,35 @@ void mergeSort(vector<Comparable> &a, Comparator less_than)
  	}
  }
 
+
+/**
+* Internal method that makes recursive calls.
+* a is an array of Comparable items.
+* tmpArray is an array to place the merged result.
+* left is the left-most index of the subarray.
+* right is the right-most index of the subarray.
+*/
+template <typename Comparable, typename Comparator>
+void mergeSort(vector<Comparable> &a,vector<Comparable> &b,Comparable left,Comparable right, Comparator less_than)
+{
+	if(left<right)
+	{
+		Comparable center=(left+right)/2;
+		mergeSort(a,b,left,center,less_than);
+		mergeSort(a,b,center+1,right,less_than);
+		merge(a,b,left,center+1,right,less_than);
+	}
+}
+template <typename Comparable, typename Comparator>
+void MergeSort(vector<Comparable> &a, Comparator less_than)
+{
+	/**
+ * mergeSort algorithm (driver).
+ */
+	vector<Comparable>b(a.size());
+	Comparable c=a.size()-1;
+	mergeSort(a,b,0,c,less_than);
+}
 
 /**
  * Return median of left, center, and right.
@@ -255,7 +256,7 @@ const Comparable & median3( vector<Comparable> & a, int left, int right )
  * Quicksort algorithm (driver).
  */
  template <typename Comparable, typename Comparator>
- void quickSort(vector<Comparable> &a, Comparator less_than)
+ void QuickSort(vector<Comparable> &a, Comparator less_than)
  {
  	Comparable left=0;
  	Comparable right =a.size()-1;
