@@ -1,5 +1,6 @@
 // Code from textbook
-// Modified by: YOUR NAME
+// Modified by: Tal Bachar
+
 
 #ifndef SORT_H
 #define SORT_H
@@ -8,9 +9,10 @@
  * Several sorting routines.
  * Arrays are rearranged with smallest item first.
  */
-
+#include <iostream>
 #include <vector>
 #include <functional>
+#include <chrono>
 using namespace std;
 
 /**
@@ -72,43 +74,6 @@ void shellsort( vector<Comparable> & a )
         }
 }
 
-/**
- * Standard heapsort.
- */
- Template <typename Comparable, typename Comparator>
- void heapSort(vector<Comparable> &a, Comparator less_than) {
-
-   const auto begin = chrono::high_resolution_clock::now();
-   for( int i = a.size( ) / 2 - 1; i >= 0; --i )  /* buildHeap */
-        percDown( a, i, a.size(), less_than );
-   for( int j = a.size( ) - 1; j > 0; --j ) {
-        std::swap( a[ 0 ], a[ j ] );               /* deleteMax */
-        percDown( a, 0, j, less_than );
-    }
-    const auto end = chrono::high_resolution_clock::now();
-    cout << "Heapsort Runtime: " << ComputeDuration(begin, end) << endl;
-}
-
-/**
-	for(int i=a.size()/2-1;i>=0;--i)
-	{
-		int k=a.size();
-		// percolate down in a max heap stopping if we reach N -1
-		percDown(a,i,k,less_than);
-	}
-	// A is now a heap
-	// Now repeatedly swap the max element with the last element in the heap
-	for(int j=a.size()-1;j>0;--j)
-	{
-		swap(a[0],a[j]);
-		percDown(a,0,j,less_than);
-	}
-
-
-	cout <<"heapSort: "<<"Runtime: "<< chrono::duration_cast<chrono::nanoseconds>(end-begin).count() << "ns" << endl;
-}
-**/
-
 
 /**
  * Internal method for heapsort.
@@ -120,14 +85,15 @@ inline int leftChild( int i )
     return 2 * i + 1;
 }
 
+
 /**
  * Internal method for heapsort that is used in
  * deleteMax and buildHeap.
  * i is the position from which to percolate down.
  * n is the logical size of the binary heap.
  */
-template <typename Comparable>
-void percDown( vector<Comparable> & a, int i, int n, Comparator less_than )
+template <typename Comparable, typename Comparator>
+void percDown(vector<Comparable> & a, int i, int n, Comparator less_than)
 {
     int child;
     Comparable tmp;
@@ -136,13 +102,28 @@ void percDown( vector<Comparable> & a, int i, int n, Comparator less_than )
         child = leftChild( i );
       if (child != n-1 && less_than(a[child],a[child+1]))
             ++child;
-      if(less_than(temp,a[child]))
+      if(less_than(tmp,a[child]))
             a[ i ] = std::move( a[ child ] );
         else
             break;
     }
     a[ i ] = std::move( tmp );
 }//end percDown
+
+
+/**
+ * Standard heapsort.
+ */
+ template <typename Comparable, typename Comparator>
+ void heapSort(vector<Comparable> &a, Comparator less_than) {
+
+   for( int i = a.size( ) / 2 - 1; i >= 0; --i )  /* buildHeap */
+        percDown(a, i, a.size(), less_than );
+   for( int j = a.size( ) - 1; j > 0; --j ) {
+        std::swap( a[ 0 ], a[ j ] );               /* deleteMax */
+        percDown( a, 0, j, less_than );
+    }
+}
 
 /**
 * Internal method that makes recursive calls.
@@ -168,17 +149,10 @@ void mergeSort(vector<Comparable> &a, Comparator less_than)
 	/**
  * mergeSort algorithm (driver).
  */
-	const auto begin = chrono::high_resolution_clock::now();
 	vector<Comparable>b(a.size());
 	Comparable c=a.size()-1;
 	mergeSort(a,b,0,c,less_than);
-
-
-	const auto end = chrono::high_resolution_clock::now();
-	cout <<"mergeSort Runtime: "<< chrono::duration_cast<chrono::nanoseconds>(end-begin).count() << "ns" << endl;
 }
-
-
 /**
  * Internal method that merges two sorted halves of a subarray.
  * a is an array of Comparable items.
@@ -251,8 +225,7 @@ const Comparable & median3( vector<Comparable> & a, int left, int right )
  * right is the right-most index of the subarray.
  */
  template <typename Comparable, typename Comparator>
- void QuickSort(vector<Comparable> &a, Comparator less_than)
-{
+ void quickSort(vector<Comparable> &a,Comparable left, Comparable right ,Comparator less_than) {
     if( left + 10 <= right )
     {
         const Comparable & pivot = median3( a, left, right, less_than );
@@ -284,16 +257,10 @@ const Comparable & median3( vector<Comparable> & a, int left, int right )
  template <typename Comparable, typename Comparator>
  void quickSort(vector<Comparable> &a, Comparator less_than)
  {
- 	const auto begin = chrono::high_resolution_clock::now();
-
  	Comparable left=0;
  	Comparable right =a.size()-1;
  	quickSort(a,left,right,less_than);
  	//sort(a.begin(),a.end(),less_than);
-
- 	const auto end = chrono::high_resolution_clock::now();
-   cout << "Heapsort Runtime: " << ComputeDuration(begin, end) << endl;
-
  }
 
 
