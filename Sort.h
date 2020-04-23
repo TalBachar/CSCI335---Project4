@@ -201,8 +201,8 @@ void MergeSort(vector<Comparable> &a, Comparator less_than)
  * Return median of left, center, and right.
  * Order these and hide the pivot.
  */
-template <typename Comparable>
-const Comparable & median3( vector<Comparable> & a, int left, int right )
+template <typename Comparable, typename Comparator>
+const Comparable & median3( vector<Comparable> & a, int left, int right,Comparator less_than)
 {
     int center = ( left + right ) / 2;
 
