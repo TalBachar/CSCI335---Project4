@@ -277,6 +277,57 @@ const Comparable & median3( vector<Comparable> & a, int left, int right,Comparat
  	//sort(a.begin(),a.end(),less_than);
  }
 
+ template <typename Comparable>
+ const Comparable & getMiddle(vector<Comparable> & a, Comparable left, Comparable right)
+ {
+ 	int middle=(left+right)/2;
+ 	swap(a[middle],a[right-1]);
+ 	return a[right-1];
+ }
+
+ //Middle Pivot Wrapper
+ template <typename Comparable, typename Comparator>
+ void QuickSort2(vector<Comparable> &a, Comparator less_than) {
+ 	Comparable left=0;
+   Comparable right =a.size()-1;
+   quickSort_middle(a,left,right,less_than);
+   //sort(a.begin(),a.end(),less_than)
+   }
+   template <typename Comparable, typename Comparator>
+   void quickSort_middle(vector<Comparable> &a,Comparable left, Comparable right ,Comparator less_than)
+   {
+	   if(left + 10 <=right){
+			const Comparable &pivot=getMiddle(a,left,right);
+
+   		int i=left-1;
+   		int j=right-1;
+
+   		for(;;) {
+   			while(less_than(a[++i],pivot)){}
+   			while(less_than(pivot,a[--j])){}
+   			if(i<j) {
+   				swap(a[i],a[j]);
+   			}
+   			else {
+   				break;
+            }
+   		}
+   		swap(a[i],a[right-1]);
+   		quickSort_middle(a,left,i-1,less_than);
+   		quickSort_middle(a,i+1,right,less_than);
+	  }
+	   else {
+		    insertionSort(a,left,right,less_than);
+	  }
+}//end quickSort_middle
+
+ //First Pivot Wrapper
+ template <typename Comparable, typename Comparator>
+ void QuickSort3(vector<Comparable> &a, Comparator less_than) {
+
+
+}
+
 
 /**
  * Internal selection method that makes recursive calls.

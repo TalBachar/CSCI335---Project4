@@ -28,7 +28,6 @@ vector<int> GenerateRandomVector(size_t size_of_vector) {
 // Otherwise returns vector sorted from large to small
 vector<int> GenerateSortedVector(size_t size_of_vector, bool smaller_to_larger) {
    vector<int> sorted_vector;
-
    if (smaller_to_larger) {
       for (int i=0; i<size_of_vector; i++) {
          sorted_vector.push_back(i);
@@ -94,6 +93,9 @@ void sortTestingWrapper(int argc, char **argv) {
        vector<int> input_vector = GenerateRandomVector(input_size);
        vector<int> input_vector1 = input_vector;
        vector<int> input_vector2 = input_vector;
+       vector<int> input_vector3 = input_vector;   //for Median of Three
+       vector<int> input_vector4 = input_vector;   //for Median of Middle
+       vector<int> input_vector5 = input_vector;   //for Median of First
 
        if (comparison_type == "less") {
          //HEAP
@@ -114,6 +116,25 @@ void sortTestingWrapper(int argc, char **argv) {
          const auto end2 = chrono::high_resolution_clock::now();
          cout << "QuickSort" << "\n\n" <<  "Runtime: " << ComputeDuration(begin2, end2) << " ns" << endl;
          cout << "Verified: " << VerifyOrder(input_vector2, less<int>{}) << "\n\n";
+//----------------------------------------------------------------------------------------------------------
+         cout << "Testing Quicksort Pivot Implementations" << "\n\n" ;
+         const auto begin3 = chrono::high_resolution_clock::now();
+         QuickSort(input_vector3, less<int>{});
+         const auto end3 = chrono::high_resolution_clock::now();
+         cout << "Median of Three" << "\n\n" <<  "Runtime: " << ComputeDuration(begin3, end3) << " ns" << endl;
+         cout << "Verified: " << VerifyOrder(input_vector3, less<int>{}) << "\n\n";
+
+         const auto begin4 = chrono::high_resolution_clock::now();
+         QuickSort(input_vector4, less<int>{});
+         const auto end4 = chrono::high_resolution_clock::now();
+         cout << "Middle" << "\n\n" << "Runtime:" << ComputeDuration(begin4, end4) << " ns" << endl;
+         cout << "Verified: " << VerifyOrder(input_vector4, less<int>{}) << "\n\n";
+
+         const auto begin5 = chrono::high_resolution_clock::now();
+         QuickSort(input_vector5, less<int>{});
+         const auto end5 = chrono::high_resolution_clock::now();
+         cout << "First" << "\n\n" << "Runtime:" << ComputeDuration(begin5, end5) << " ns" << endl;
+         cout << "Verified: " << VerifyOrder(input_vector5, less<int>{}) << "\n\n";
 
       }
       if (comparison_type == "greater") {
@@ -134,7 +155,26 @@ void sortTestingWrapper(int argc, char **argv) {
          QuickSort(input_vector2, greater<int>{});
          const auto end2 = chrono::high_resolution_clock::now();
          cout << "QuickSort" << "\n\n" <<  "Runtime: " << ComputeDuration(begin2, end2) << " ns" << endl;
-         cout << "Verified: " << VerifyOrder(input_vector2, greater<int>{}) << "\n\n"; //ISSUE! not verified
+         cout << "Verified: " << VerifyOrder(input_vector2, greater<int>{}) << "\n\n";
+//------------------------------------------------------------------------------------------------------------
+         cout << "Testing Quicksort Pivot Implementations" << "\n\n" ;
+         const auto begin3 = chrono::high_resolution_clock::now();
+         QuickSort(input_vector3, greater<int>{});
+         const auto end3 = chrono::high_resolution_clock::now();
+         cout << "Median of Three" << "\n\n" <<  "Runtime: " << ComputeDuration(begin3, end3) << " ns" << endl;
+         cout << "Verified: " << VerifyOrder(input_vector3, greater<int>{}) << "\n\n";
+
+         const auto begin4 = chrono::high_resolution_clock::now();
+         QuickSort(input_vector4, greater<int>{});
+         const auto end4 = chrono::high_resolution_clock::now();
+         cout << "Middle" << "\n\n" << "Runtime:" << ComputeDuration(begin4, end4) << " ns" << endl;
+         cout << "Verified: " << VerifyOrder(input_vector4, greater<int>{}) << "\n\n";
+
+         const auto begin5 = chrono::high_resolution_clock::now();
+         QuickSort(input_vector5, greater<int>{});
+         const auto end5 = chrono::high_resolution_clock::now();
+         cout << "First" << "\n\n" << "Runtime:" << ComputeDuration(begin5, end5) << " ns" << endl;
+         cout << "Verified: " << VerifyOrder(input_vector5, greater<int>{}) << "\n\n";
 
       }
    }//end random
@@ -143,6 +183,9 @@ void sortTestingWrapper(int argc, char **argv) {
    vector<int> input_vector = GenerateSortedVector(input_size, true);
    vector<int> input_vector1 = input_vector;
    vector<int> input_vector2 = input_vector;
+   vector<int> input_vector3 = input_vector;   //for Median of Three
+   vector<int> input_vector4 = input_vector;   //for Median of Middle
+   vector<int> input_vector5 = input_vector;   //for Median of First
 
    if (comparison_type == "less") {
      //HEAP
@@ -163,6 +206,25 @@ void sortTestingWrapper(int argc, char **argv) {
      const auto end2 = chrono::high_resolution_clock::now();
      cout << "QuickSort" << "\n\n" <<  "Runtime: " << ComputeDuration(begin2, end2) << " ns" << endl;
      cout << "Verified: " << VerifyOrder(input_vector2, less<int>{}) << "\n\n";
+//----------------------------------------------------------------------------------------------------------
+     cout << "Testing Quicksort Pivot Implementations" << "\n\n" ;
+     const auto begin3 = chrono::high_resolution_clock::now();
+     QuickSort(input_vector3, less<int>{});
+     const auto end3 = chrono::high_resolution_clock::now();
+     cout << "Median of Three" << "\n\n" <<  "Runtime: " << ComputeDuration(begin3, end3) << " ns" << endl;
+     cout << "Verified: " << VerifyOrder(input_vector3, less<int>{}) << "\n\n";
+
+     const auto begin4 = chrono::high_resolution_clock::now();
+     QuickSort(input_vector4, less<int>{});
+     const auto end4 = chrono::high_resolution_clock::now();
+     cout << "Middle" << "\n\n" << "Runtime:" << ComputeDuration(begin4, end4) << " ns" << endl;
+     cout << "Verified: " << VerifyOrder(input_vector4, less<int>{}) << "\n\n";
+
+     const auto begin5 = chrono::high_resolution_clock::now();
+     QuickSort(input_vector5, less<int>{});
+     const auto end5 = chrono::high_resolution_clock::now();
+     cout << "First" << "\n\n" << "Runtime:" << ComputeDuration(begin5, end5) << " ns" << endl;
+     cout << "Verified: " << VerifyOrder(input_vector5, less<int>{}) << "\n\n";
 
   }//sorted_small_to_large - LESS
   if (comparison_type == "greater") {
@@ -183,7 +245,26 @@ void sortTestingWrapper(int argc, char **argv) {
      QuickSort(input_vector2, greater<int>{});
      const auto end2 = chrono::high_resolution_clock::now();
      cout << "QuickSort" << "\n\n" <<  "Runtime: " << ComputeDuration(begin2, end2) << " ns" << endl;
-     cout << "Verified: " << VerifyOrder(input_vector2, greater<int>{}) << "\n\n";  //ISSUE - Doesn't verify
+     cout << "Verified: " << VerifyOrder(input_vector2, greater<int>{}) << "\n\n";
+     //------------------------------------------------------------------------------------------------------------
+     cout << "Testing Quicksort Pivot Implementations" << "\n\n" ;
+     const auto begin3 = chrono::high_resolution_clock::now();
+     QuickSort(input_vector3, greater<int>{});
+     const auto end3 = chrono::high_resolution_clock::now();
+     cout << "Median of Three" << "\n\n" <<  "Runtime: " << ComputeDuration(begin3, end3) << " ns" << endl;
+     cout << "Verified: " << VerifyOrder(input_vector3, greater<int>{}) << "\n\n";
+     const auto begin4 = chrono::high_resolution_clock::now();
+     QuickSort(input_vector4, greater<int>{});
+     const auto end4 = chrono::high_resolution_clock::now();
+     cout << "Middle" << "\n\n" << "Runtime:" << ComputeDuration(begin4, end4) << " ns" << endl;
+     cout << "Verified: " << VerifyOrder(input_vector4, greater<int>{}) << "\n\n";
+     const auto begin5 = chrono::high_resolution_clock::now();
+     QuickSort(input_vector5, greater<int>{});
+     const auto end5 = chrono::high_resolution_clock::now();
+     cout << "First" << "\n\n" << "Runtime:" << ComputeDuration(begin5, end5) << " ns" << endl;
+     cout << "Verified: " << VerifyOrder(input_vector5, greater<int>{}) << "\n\n";
+
+
   }//sorted_small_to_large - GREATER
 
  }//sorted_small_to_large
@@ -192,6 +273,9 @@ void sortTestingWrapper(int argc, char **argv) {
      vector<int> input_vector = GenerateSortedVector(input_size, false);
      vector<int> input_vector1 = input_vector;
      vector<int> input_vector2 = input_vector;
+     vector<int> input_vector3 = input_vector;   //for Median of Three
+     vector<int> input_vector4 = input_vector;   //for Median of Middle
+     vector<int> input_vector5 = input_vector;   //for Median of First
 
      if (comparison_type == "less") {
        //HEAP
@@ -212,6 +296,26 @@ void sortTestingWrapper(int argc, char **argv) {
        const auto end2 = chrono::high_resolution_clock::now();
        cout << "QuickSort" << "\n\n" <<  "Runtime: " << ComputeDuration(begin2, end2) << " ns" << endl;
        cout << "Verified: " << VerifyOrder(input_vector2, less<int>{}) << "\n\n";
+       //----------------------------------------------------------------------------------------------------------
+       cout << "Testing Quicksort Pivot Implementations" << "\n\n" ;
+       const auto begin3 = chrono::high_resolution_clock::now();
+       QuickSort(input_vector3, less<int>{});
+       const auto end3 = chrono::high_resolution_clock::now();
+       cout << "Median of Three" << "\n\n" <<  "Runtime: " << ComputeDuration(begin3, end3) << " ns" << endl;
+       cout << "Verified: " << VerifyOrder(input_vector3, less<int>{}) << "\n\n";
+
+       const auto begin4 = chrono::high_resolution_clock::now();
+       QuickSort(input_vector4, less<int>{});
+       const auto end4 = chrono::high_resolution_clock::now();
+       cout << "Middle" << "\n\n" << "Runtime:" << ComputeDuration(begin4, end4) << " ns" << endl;
+       cout << "Verified: " << VerifyOrder(input_vector4, less<int>{}) << "\n\n";
+
+       const auto begin5 = chrono::high_resolution_clock::now();
+       QuickSort(input_vector5, less<int>{});
+       const auto end5 = chrono::high_resolution_clock::now();
+       cout << "First" << "\n\n" << "Runtime:" << ComputeDuration(begin5, end5) << " ns" << endl;
+       cout << "Verified: " << VerifyOrder(input_vector5, less<int>{}) << "\n\n";
+
     }//sorted_large_to_small - LESS
 
     if (comparison_type == "greater") {
@@ -220,7 +324,7 @@ void sortTestingWrapper(int argc, char **argv) {
        HeapSort(input_vector, greater<int>{});
        const auto end = chrono::high_resolution_clock::now();
        cout << "Heapsort" << "\n\n" <<  "Runtime: " << ComputeDuration(begin, end) << " ns" << endl;
-       cout << "Verified: " << VerifyOrder(input_vector, greater<int>{}) << endl;
+       cout << "Verified: " << VerifyOrder(input_vector, greater<int>{}) << "\n\n";
        //MERGE
        const auto begin1 = chrono::high_resolution_clock::now();
        MergeSort(input_vector1, greater<int>{});
@@ -232,7 +336,27 @@ void sortTestingWrapper(int argc, char **argv) {
        QuickSort(input_vector2, greater<int>{});
        const auto end2 = chrono::high_resolution_clock::now();
        cout << "QuickSort" << "\n\n" <<  "Runtime: " << ComputeDuration(begin2, end2) << " ns" << endl;
-       cout << "Verified: " << VerifyOrder(input_vector2, greater<int>{}) << "\n\n";   //ISSUE - doesn't verify
+       cout << "Verified: " << VerifyOrder(input_vector2, greater<int>{}) << "\n\n";
+       //------------------------------------------------------------------------------------------------------------
+       cout << "Testing Quicksort Pivot Implementations" << "\n\n" ;
+       const auto begin3 = chrono::high_resolution_clock::now();
+       QuickSort(input_vector3, greater<int>{});
+       const auto end3 = chrono::high_resolution_clock::now();
+       cout << "Median of Three" << "\n\n" <<  "Runtime: " << ComputeDuration(begin3, end3) << " ns" << endl;
+       cout << "Verified: " << VerifyOrder(input_vector3, greater<int>{}) << "\n\n";
+
+       const auto begin4 = chrono::high_resolution_clock::now();
+       QuickSort(input_vector4, greater<int>{});
+       const auto end4 = chrono::high_resolution_clock::now();
+       cout << "Middle" << "\n\n" << "Runtime:" << ComputeDuration(begin4, end4) << " ns" << endl;
+       cout << "Verified: " << VerifyOrder(input_vector4, greater<int>{}) << "\n\n";
+
+       const auto begin5 = chrono::high_resolution_clock::now();
+       QuickSort(input_vector5, greater<int>{});
+       const auto end5 = chrono::high_resolution_clock::now();
+       cout << "First" << "\n\n" << "Runtime:" << ComputeDuration(begin5, end5) << " ns" << endl;
+       cout << "Verified: " << VerifyOrder(input_vector5, greater<int>{}) << "\n\n";
+
     }//sorted_large_to_small - GREATER
 
   } //sorted_large_to_small
