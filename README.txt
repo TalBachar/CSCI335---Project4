@@ -23,4 +23,7 @@ SOLVED: Had to edit insertionSort, now all Verifies
 SOLVED: experimented until success!
 
 6) Submitted to GS, 27.0/37.0 pts. ComputeDuration, Generate random/sorted and ComputeDuration are ["Errno 2"]
-SOLVED: 
+SOLVED: File I had has .cp for some reason. Changed to .cc and it worked
+
+7) I need to account for identical elements in the vector inside VerifyOrder()
+SOLVED: Not an issue for a man of my skills and good looks. 37/37.
